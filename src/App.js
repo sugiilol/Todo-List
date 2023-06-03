@@ -1,5 +1,5 @@
-import Item from "../src/Components/Item/Item"
 import Form from "../src/Components/Form/Form"
+import "../node_modules/bootstrap/dist/css/bootstrap.min.css"
 
 function App() {
   return (
