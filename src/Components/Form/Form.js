@@ -5,7 +5,7 @@ import Item from "../Item/Item"
 import CatPicture from "../CatPicture/CatPicture"
 import LoadingPicture from "../LoadingPicture/LoadingPicture"
 
-function Form() {
+export default function Form() {
 
     const [dataState, setDataState] = useState([
         { txt: "Faire le ménage", id: uuidv4() },
@@ -18,7 +18,7 @@ function Form() {
 
     const [catPictureState, setCatPictureState] = useState()
 
-    const [toggleLoading, setToggleLoading] = useState(true)
+    const [toggle, setToggle] = useState(true)
 
     /*Func add and delete to-do element*/
 
@@ -61,34 +61,29 @@ function Form() {
             .then((data) => {
                 setTimeout(() => {
                     setCatPictureState(data[0].url)
-                    setToggleLoading(false)
+                    setToggle(false)
                 }, 2000)
             })
     }, [])
 
-    if (toggleLoading) {
-        return (
-            <div className="container text-center">
+    return (
+        <div className="container text-center">   
+            <div className={!toggle? "displayNone" : ""}>
                 <LoadingPicture />
             </div>
-        )
-    }
-    return (
-        <div className="container text-center">
-            <div className="col-lg-6">
+            <div className={toggle? "displayNone" : ""}>
                 <form onSubmit={(e) => newTodoAdd(e)}>
                     <input className="form-control m-5" type="text" value={stateInput} placeholder="Quoi rajouter ?" onInput={(e) => inputRecup(e.target.value)} />
                     <button className="btn btn-primary">go go go !!!</button>
                 </form>
                 {dataState.map((item) => {
                     return <Item txt={item.txt} key={item.id} id={item.id} deleteFunc={deleteElement} />
-                })}
-            </div>
-            <div>
-                <CatPicture img={catPictureState} />
-            </div>
+                })}           
+                <div>                   
+                    <CatPicture img={catPictureState} />
+                </div>
+            </div>        
         </div>
     )
 }
 
-export default Form
