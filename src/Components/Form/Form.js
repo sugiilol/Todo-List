@@ -68,21 +68,20 @@ export default function Form() {
 
     return (
         <div className="container text-center">   
-            <div className={!toggle? "displayNone" : ""}>
-                <LoadingPicture />
-            </div>
-            <div className={toggle? "displayNone" : ""}>
-                <form onSubmit={(e) => newTodoAdd(e)}>
-                    <input className="form-control m-5" type="text" value={stateInput} placeholder="Quoi rajouter ?" onInput={(e) => inputRecup(e.target.value)} />
-                    <button className="btn btn-primary">go go go !!!</button>
-                </form>
-                {dataState.map((item) => {
-                    return <Item txt={item.txt} key={item.id} id={item.id} deleteFunc={deleteElement} />
-                })}           
-                <div>                   
+            {toggle ?
+                <LoadingPicture /> 
+                : 
+                <div>
+                    <form onSubmit={(e) => newTodoAdd(e)}>
+                         <input className="form-control m-5" type="text" value={stateInput} placeholder="Quoi rajouter ?" onInput={(e) => inputRecup(e.target.value)} />
+                         <button className="btn btn-primary">go go go !!!</button>
+                    </form>
+                    {dataState.map((item) => {
+                        return <Item txt={item.txt} key={item.id} id={item.id} deleteFunc={deleteElement} />
+                    })}                                            
                     <CatPicture img={catPictureState} />
                 </div>
-            </div>        
+            }                   
         </div>
     )
 }
